@@ -85,42 +85,74 @@
 
 
 
-<!-- radio buttons-->>
+<!-- radio buttons-->
 
   <div class="fieldContainer">
     <div class="labelContainer">
-      <label>Habilidades</label>
+      <label>Generacion</label>
     </div>
     <div class="inputContainer">
       <ValidationProvider rules='required' v-slot="{ errors }">
-    <input type="radio" id="tipo1" value="Water Absorb" v-model="selectedTipo" >
-    <label for="tipo1">Water Absorb</label>
+    <input type="radio" id="tipo1" value="Primera Generacion" v-model="selectedTipo" >
+    <label for="tipo1">Primera Generacion</label>
+    <input type="radio" id="tipo2" value="Segunda Generacion" v-model="selectedTipo" >
+    <label for="tipo2">Segunda Generacion</label>
+    <input type="radio" id="tipo3" value="Tercera Generacion" v-model="selectedTipo" >
+    <label for="tipo3">Tercera Generacion</label>
   <span class="errors">{{ errors[0] }}</span>
 </ValidationProvider>
     </div>
   </div>
 
-
-  <div>
-    <ValidationProvider rules="required" v-slot="{ errors }">
-      <div>
-        <label>
-          <input type="checkbox" v-model="checkbox1" />
-          Checkbox 1
-        </label>
-      </div>
-      <div>
-        <label>
-          <input type="checkbox" v-model="checkbox2" />
-          Checkbox 2
-        </label>
-      </div>
-      <span>{{ errors[0] }}</span>
+<!--  Check  Box-->
+  <div class="fieldContainer">
+  <div class="labelContainer">
+    <label>Habilidades</label>
+  </div>
+  <div class="inputContainer">
+    <ValidationProvider rules='required' v-slot="{ errors }">
+      <input type="checkbox" id="tipo1" value="Water Absorb" v-model="selectedValues">
+      <label for="tipo1">Water Absorb</label>
+      <input type="checkbox" id="tipo2" value="Electric Absorb" v-model="selectedValues">
+      <label for="tipo2">Electric Absorb</label>
+      <input type="checkbox" id="tipo3" value="Fire Absorb" v-model="selectedValues">
+      <label for="tipo3">Fire Absorb</label>
+      <span class="errors">{{ errors[0] }}</span>
     </ValidationProvider>
   </div>
+</div>
 
+<!-- Rangos-->
+<div class="fieldContainer">
+  <div class="labelContainer">
+    <label for="habilidades">Habilidades</label>
+  </div>
+  <div class="inputContainer">
+    <ValidationProvider rules="required|range200to3000" v-slot="{ errors }">
+      <div>
+        <input type="range" id="habilidades" min="0" max="5000" v-model="fuerza">
+        <output>{{ fuerza }}</output>
+        <span class="errors">{{ errors[0] }}</span>
+      </div>
+    </ValidationProvider>
+  </div>
+</div>
 
+<!-- Password -->
 
+<div class="fieldContainer">
+  <div class="labelContainer">
+    <label for="password">Contraseña</label>
+  </div>
+  <div class="inputContainer">
+    <ValidationProvider rules="required|passwordValidation" v-slot="{ errors }">
+      <div>
+        <input type="password" id="paswword" v-model="password">
+        <span class="errors">{{ errors[0] }}</span>
+      </div>
+    </ValidationProvider>
+  </div>
+</div>
 
 
 
@@ -169,6 +201,7 @@
             </div>
           </div>
 
+     <!-- Text Area -->
           <div class="fieldContainer">
             <div class="labelContainer">
               <label for="description">Descripción: </label>
@@ -190,6 +223,8 @@
             </div>
           </div>
 
+
+ <!-- numeros -->
           <div class="fieldContainer">
             <div class="labelContainer">
               <label for="pokemonWeight">Peso del pokemón: </label>
@@ -211,6 +246,8 @@
               </ValidationProvider>
             </div>
           </div>
+
+          <!-- numeros -->
 
           <div class="fieldContainer">
             <div class="labelContainer">
@@ -346,6 +383,7 @@ extend("descriptionEscape", (description) => {
   }
 });
 
+//Regla que valida que el campo del email sea de tipo email
 extend('email_format', {
   validate: value => {
     // Utiliza una expresión regular para validar el formato del correo electrónico
@@ -363,28 +401,40 @@ extend("weightPositive", (pokemonWeight) => {
 });
 
 
-extend('rango_fuerza', {
-  validate(value) {
-    return value > 200 && value < 2000;
-  },
-  message: 'La fuerza debe ser mayor que 200 y menor que 2000'
-});
 
-
+// Regla que valida que el campo del color debe ser un valor hexadecimal
 extend('colorHex', {
   validate: value => /^#[0-9A-Fa-f]{6}$/.test(value),
-  message: 'El campo {field} debe ser un color hexadecimal válido en formato "#rrggbb".'
+  message: 'El campo color del pokemon  debe ser un color hexadecimal válido en formato "#rrggbb".'
 });
 
-extend('requiredCheckbox', {
-  ...required,
-  validate(value, { activarRadioButtons, selectedTipo }) {
-    if (!activarRadioButtons) {
-      return null; // Retorna null si el checkbox no está seleccionado
+// Regla que valida que el valor de la fuerza sea mayor a 200 y menor que 3000
+extend('range200to3000', {
+  validate(value) {
+    const isValid = value >= 200 && value <= 3000;
+    if (!isValid) {
+      console.log('El valor debe estar entre 200 y 3000');
     }
-    return selectedTipo ? true : 'Por favor, selecciona una habilidad.';
+    return isValid;
   },
-  message: 'Este campo es requerido.'
+  message: 'El valor debe estar entre 200 y 3000'
+});
+
+
+
+//Regla que valida la contraseña 
+extend('passwordValidation', {
+  validate(value) {
+    // Al menos una letra mayúscula
+    const uppercaseRegex = /[A-Z]/;
+    // Al menos un número
+    const numberRegex = /\d/;
+    // Sin caracteres especiales
+    const specialCharRegex = /^[a-zA-Z0-9]*$/;
+
+    return uppercaseRegex.test(value) && numberRegex.test(value) && specialCharRegex.test(value);
+  },
+  message: 'La contraseña debe contener al menos una letra mayúscula, un número y no puede contener caracteres especiales.'
 });
 export default {
   name: "FormModal",
@@ -402,12 +452,15 @@ export default {
       selectedTipo:null,
       fuerza: 250,
       color: '#RRGGBB',
+      selectedValues: [],
+      fuerza: 0,
+      password: null,
       types: [],
     };
   },
   methods: {
     sendForm() {
-      
+      const selectedValuesString = this.selectedValues.join(',');
       axios
         .post("http://localhost:8080/api/pokemons", {
           name: this.name,
@@ -422,8 +475,10 @@ export default {
           },
           imageBase64: this.imageBase64,
           selectedTipo: this.selectedTipo,
-            
-        })
+          selectedValues: selectedValuesString,
+          fuerza: this.fuerza,
+          password: this.password,
+    })
         .then((response) => {
           this.name = null;
           this.description = null;
@@ -434,6 +489,9 @@ export default {
           this.email=null;
           this.color=null;
           this.selectedTipo=null;
+          this.selectedValues=null;
+          this.fuerza=null;
+          this.password=null;
           //   this.errors = [];
           this.$emit("registroExitoso");
           this.$swal({
@@ -476,6 +534,9 @@ export default {
       this.email = null; 
       this.color=null;
       this.selectedTipo=null;
+      this.selectedValues=null;
+      this.fuerza=null;
+      this.password=null;
     },
     handleImageUpload(event) {
       this.imageFile = event.target.files[0];
@@ -505,9 +566,7 @@ handleCheckboxChange(newValue) {
       if (!newValue) {
         this.selectedTipo = null; // Establece el valor del radio button como null cuando se desactiva el checkbox
       }
-    }
-  
-
+    },
   },
   mounted() {
     axios

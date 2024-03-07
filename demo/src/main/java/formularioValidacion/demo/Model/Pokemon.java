@@ -1,10 +1,12 @@
 package formularioValidacion.demo.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 
 import java.util.List;
+
 
 /*
    Las validaciones de bean en Spring Boot se realizan antes de que los datos se envíen a la base de datos.
@@ -67,6 +69,46 @@ public class Pokemon {
     private String color;
 
 
+
+
+    @NotBlank(message = "Los valores seleccionados no pueden estar vacíos")
+    private String selectedValues;
+
+
+
+    @Min(value = 200, message = "La fuerza no puede ser menor que 200")
+    @Max(value = 3000, message = "La fuerza no puede ser mayor que 3000")
+    private int fuerza;
+
+    @NotNull(message = "La contraseña no debe ser nula")
+    @NotBlank(message = "La contraseña no debe estar en blanco")
+    @Pattern(regexp = "^(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]*$", message = "La contraseña debe contener al menos una letra mayúscula y un número, y no puede contener caracteres especiales")
+    private String password;
+
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public int getFuerza() {
+        return fuerza;
+    }
+
+    public void setFuerza(int fuerza) {
+        this.fuerza = fuerza;
+    }
+
+    public String getSelectedValues() {
+        return selectedValues;
+    }
+
+    public void setSelectedValues(String selectedValues) {
+        this.selectedValues = selectedValues;
+    }
     public String getColor() {
         return color;
     }

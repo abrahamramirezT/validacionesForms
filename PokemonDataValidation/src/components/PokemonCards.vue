@@ -38,7 +38,11 @@
                 <p><b>Peso: </b>{{ pokemon.weight }}</p>
                 <p><b>Correo Electronico: </b>{{ pokemon.email   }}</p>
                 <p><b>Color:</b> <span :style="{ backgroundColor: pokemon.color, padding: '5px' }">{{ pokemon.color }}</span></p>
-                <p><b>Correo Electronico: </b>{{ pokemon.selectedTipo   }}</p>
+                <p><b>Generacion: </b>{{ pokemon.selectedTipo   }}</p>
+                <p><b>Checkbox: </b>{{ pokemon.selectedValues   }}</p>
+                <p><b>Contraseña: </b>{{ pokemon.password   }}</p>
+
+
 
               </div>
               <div style="width: 100%; display: flex">
