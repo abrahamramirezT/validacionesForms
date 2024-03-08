@@ -23,6 +23,8 @@ import java.util.List;
 @Entity
 @Table(name = "pokemons")
 public class Pokemon {
+
+    
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
     @Column(name = "pokemon_id")

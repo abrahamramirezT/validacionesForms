@@ -32,132 +32,6 @@
       -->
       <ValidationObserver v-slot="{ handleSubmit }">
         <form id="form" @submit.prevent="handleSubmit(sendForm)">
-
-
-     <!-- Validacion de email-->
-          <div class="fieldContainer">
-            <div class="labelContainer">
-              <label for="email">Email: </label>
-            </div>
-            <div class="inputContainer">
-              <ValidationProvider
-                rules="required|email_format"
-                v-slot="{ errors }"
-              >
-                <input
-                  id="email"
-                  v-model="email"
-                  name="email"
-                  rows="3"
-                  :class="{ invalid: errors[0] }"
-                  type="email"
-                >
-                <span class="errors">{{ errors[0] }}</span>
-              </ValidationProvider>
-            </div>
-          </div>
-
-           
-
-
-<!-- Validacion del color -->
-  <div class="fieldContainer">
-  <div class="labelContainer">
-    <label for="color">Color de tu pokemon</label>
-  </div>
-  <div class="inputContainer">
-    <ValidationProvider
-      rules="required|colorHex"
-      v-slot="{ errors }"
-    >
-      <input
-        type="color"
-        name="color"
-        id="color"
-        v-model="color"
-        @input="updateColor"
-      />
-      <span class="errors">{{ errors[0] }}</span>
-    </ValidationProvider>
-  </div>
-</div>
-
-
-
-
-<!-- radio buttons-->
-
-  <div class="fieldContainer">
-    <div class="labelContainer">
-      <label>Generacion</label>
-    </div>
-    <div class="inputContainer">
-      <ValidationProvider rules='required' v-slot="{ errors }">
-    <input type="radio" id="tipo1" value="Primera Generacion" v-model="selectedTipo" >
-    <label for="tipo1">Primera Generacion</label>
-    <input type="radio" id="tipo2" value="Segunda Generacion" v-model="selectedTipo" >
-    <label for="tipo2">Segunda Generacion</label>
-    <input type="radio" id="tipo3" value="Tercera Generacion" v-model="selectedTipo" >
-    <label for="tipo3">Tercera Generacion</label>
-  <span class="errors">{{ errors[0] }}</span>
-</ValidationProvider>
-    </div>
-  </div>
-
-<!--  Check  Box-->
-  <div class="fieldContainer">
-  <div class="labelContainer">
-    <label>Habilidades</label>
-  </div>
-  <div class="inputContainer">
-    <ValidationProvider rules='required' v-slot="{ errors }">
-      <input type="checkbox" id="tipo1" value="Water Absorb" v-model="selectedValues">
-      <label for="tipo1">Water Absorb</label>
-      <input type="checkbox" id="tipo2" value="Electric Absorb" v-model="selectedValues">
-      <label for="tipo2">Electric Absorb</label>
-      <input type="checkbox" id="tipo3" value="Fire Absorb" v-model="selectedValues">
-      <label for="tipo3">Fire Absorb</label>
-      <span class="errors">{{ errors[0] }}</span>
-    </ValidationProvider>
-  </div>
-</div>
-
-<!-- Rangos-->
-<div class="fieldContainer">
-  <div class="labelContainer">
-    <label for="habilidades">Habilidades</label>
-  </div>
-  <div class="inputContainer">
-    <ValidationProvider rules="required|range200to3000" v-slot="{ errors }">
-      <div>
-        <input type="range" id="habilidades" min="0" max="5000" v-model="fuerza">
-        <output>{{ fuerza }}</output>
-        <span class="errors">{{ errors[0] }}</span>
-      </div>
-    </ValidationProvider>
-  </div>
-</div>
-
-<!-- Password -->
-
-<div class="fieldContainer">
-  <div class="labelContainer">
-    <label for="password">Contraseña</label>
-  </div>
-  <div class="inputContainer">
-    <ValidationProvider rules="required|passwordValidation" v-slot="{ errors }">
-      <div>
-        <input type="password" id="paswword" v-model="password">
-        <span class="errors">{{ errors[0] }}</span>
-      </div>
-    </ValidationProvider>
-  </div>
-</div>
-
-
-
-
-
           <!-- 
             Ejemplo basico de vee-validate:
 
@@ -169,7 +43,7 @@
 
           <div class="fieldContainer">
             <div class="labelContainer">
-              <label for="name">Nombre del pokemón: </label>
+              <label for="name"><b>Nombre del pokemón:</b></label>
             </div>
             <div class="inputContainer">
               <!-- 
@@ -201,10 +75,10 @@
             </div>
           </div>
 
-     <!-- Text Area -->
+          <!-- Text Area -->
           <div class="fieldContainer">
             <div class="labelContainer">
-              <label for="description">Descripción: </label>
+              <label for="description"><b>Descripción:</b></label>
             </div>
             <div class="inputContainer">
               <ValidationProvider
@@ -223,11 +97,203 @@
             </div>
           </div>
 
-
- <!-- numeros -->
+          <!-- Validacion de email-->
           <div class="fieldContainer">
             <div class="labelContainer">
-              <label for="pokemonWeight">Peso del pokemón: </label>
+              <label for="email"><b>Email de tu pokemón:</b></label>
+            </div>
+            <div class="inputContainer">
+              <ValidationProvider
+                rules="required|email_format"
+                v-slot="{ errors }"
+              >
+                <input
+                  id="email"
+                  v-model="email"
+                  name="email"
+                  rows="3"
+                  :class="{ invalid: errors[0] }"
+                  type="email"
+                />
+                <span class="errors">{{ errors[0] }}</span>
+              </ValidationProvider>
+            </div>
+          </div>
+
+          <!-- Validacion del color -->
+          <div class="fieldContainer">
+            <div class="labelContainer">
+              <label for="color"><b>Color de tu pokemón:</b></label>
+            </div>
+            <div class="inputContainer">
+              <ValidationProvider rules="required|colorHex" v-slot="{ errors }">
+                <input
+                  style="height: 35px"
+                  type="color"
+                  name="color"
+                  id="color"
+                  v-model="color"
+                  @input="updateColor"
+                />
+                <span class="errors">{{ errors[0] }}</span>
+              </ValidationProvider>
+            </div>
+          </div>
+
+          <!-- radio buttons-->
+          <div class="fieldContainer">
+            <div class="labelContainer">
+              <label><b>Generación:</b></label>
+            </div>
+            <div class="inputContainer">
+              <ValidationProvider rules="required" v-slot="{ errors }">
+                <div class="select-container">
+                  <label for="tipo1">Primera Generacion</label>
+                  <input
+                    type="radio"
+                    id="gen1"
+                    value="Primera Generacion"
+                    v-model="selectedTipo"
+                  />
+                </div>
+                <div class="select-container">
+                  <label for="tipo2">Segunda Generacion</label>
+                  <input
+                    type="radio"
+                    id="gen2"
+                    value="Segunda Generacion"
+                    v-model="selectedTipo"
+                  />
+                </div>
+                <div class="select-container">
+                  <label for="tipo3">Tercera Generacion</label>
+                  <input
+                    type="radio"
+                    id="gen3"
+                    value="Tercera Generacion"
+                    v-model="selectedTipo"
+                  />
+                </div>
+                <span class="errors">{{ errors[0] }}</span>
+              </ValidationProvider>
+            </div>
+          </div>
+
+          <!--  Check  Box-->
+          <div class="fieldContainer">
+            <div class="labelContainer">
+              <label><b>Habilidades:</b></label>
+            </div>
+            <div class="inputContainer">
+              <ValidationProvider rules="required" v-slot="{ errors }">
+                <div class="select-container">
+                  <label for="tipo1">Absorción agua</label>
+                  <input
+                    type="checkbox"
+                    id="tipo1"
+                    value="Absorción agua"
+                    v-model="selectedValues"
+                  />
+                </div>
+                <div class="select-container">
+                  <label for="tipo2">Absorción fuego</label>
+                  <input
+                    type="checkbox"
+                    id="tipo2"
+                    value="Absorción fuego"
+                    v-model="selectedValues"
+                  />
+                </div>
+                <div class="select-container">
+                  <label for="tipo3">Absorción electricidad</label>
+                  <input
+                    type="checkbox"
+                    id="tipo3"
+                    value="Absorción electricidad"
+                    v-model="selectedValues"
+                  />
+                </div>
+                <span class="errors">{{ errors[0] }}</span>
+              </ValidationProvider>
+            </div>
+          </div>
+
+          <!-- Rangos-->
+          <div class="fieldContainer">
+            <div class="labelContainer">
+              <label for="habilidades"><b>Fuerza del pokemón:</b></label>
+            </div>
+            <div class="inputContainer">
+              <ValidationProvider
+                rules="required|range200to3000"
+                v-slot="{ errors }"
+              >
+                <div>
+                  <input
+                    type="range"
+                    id="habilidades"
+                    min="0"
+                    max="5000"
+                    v-model="fuerza"
+                  />
+                  <output>{{ fuerza }}</output>
+                  <br />
+                  <span class="errors">{{ errors[0] }}</span>
+                </div>
+              </ValidationProvider>
+            </div>
+          </div>
+
+          <!-- Password -->
+          <div class="fieldContainer">
+            <div class="labelContainer">
+              <label for="password"><b>Contraseña:</b></label>
+            </div>
+            <div class="inputContainer">
+              <ValidationProvider
+                rules="required|passwordValidation|password:@confirm"
+                v-slot="{ errors }"
+              >
+                <div>
+                  <input
+                    type="password"
+                    :class="{ invalid: errors[0] }"
+                    id="paswword"
+                    v-model="password"
+                  />
+                  <span class="errors">{{ errors[0] }}</span>
+                </div>
+              </ValidationProvider>
+            </div>
+          </div>
+
+          <div class="fieldContainer">
+            <div class="labelContainer">
+              <label for="password"><b>Repetir Contraseña:</b></label>
+            </div>
+            <div class="inputContainer">
+              <ValidationProvider
+                rules="required|passwordValidation"
+                v-slot="{ errors }"
+                name="confirm"
+              >
+                <div>
+                  <input
+                    type="password"
+                    :class="{ invalid: errors[0] }"
+                    id="paswwordRepeat"
+                    v-model="confirmation"
+                  />
+                  <span class="errors">{{ errors[0] }}</span>
+                </div>
+              </ValidationProvider>
+            </div>
+          </div>
+
+          <!-- números -->
+          <div class="fieldContainer">
+            <div class="labelContainer">
+              <label for="pokemonWeight"><b>Peso del pokemón:</b></label>
             </div>
             <div class="inputContainer">
               <ValidationProvider
@@ -247,11 +313,10 @@
             </div>
           </div>
 
-          <!-- numeros -->
-
+          <!-- números -->
           <div class="fieldContainer">
             <div class="labelContainer">
-              <label for="pokemonSize">Tamaño del pokemón: </label>
+              <label for="pokemonSize"><b>Tamaño del pokemón:</b></label>
             </div>
             <div class="inputContainer">
               <ValidationProvider
@@ -273,7 +338,7 @@
 
           <div class="fieldContainer">
             <div class="labelContainer">
-              <label for="pokemonWeight">Imagen del pokemón: </label>
+              <label for="pokemonWeight"><b>Imagen del pokemón:</b></label>
             </div>
             <div class="inputContainer">
               <ValidationProvider
@@ -293,7 +358,7 @@
 
           <div class="fieldContainer">
             <div class="labelContainer">
-              <label for="type">Tipo</label>
+              <label for="type"><b>Tipo:</b></label>
             </div>
             <div class="inputContainer">
               <ValidationProvider rules="required" v-slot="{ errors }">
@@ -336,10 +401,6 @@ import { extend } from "vee-validate";
 //https://vee-validate.logaretm.com/v3/guide/rules.html#rules
 import { required, min, ext } from "vee-validate/dist/rules";
 
-
-
-
-
 //Reglas con un mensaje de error personalizado, en este caso se cambio el mensaje a español
 extend("required", {
   ...required,
@@ -351,8 +412,6 @@ extend("ext", {
   ...ext,
   message: "La imagen debe ser un png",
 });
-
-
 
 //Esta regla incluye el parametro lenght para incluirlo en el mensaje de error
 extend("min", {
@@ -384,12 +443,12 @@ extend("descriptionEscape", (description) => {
 });
 
 //Regla que valida que el campo del email sea de tipo email
-extend('email_format', {
-  validate: value => {
+extend("email_format", {
+  validate: (value) => {
     // Utiliza una expresión regular para validar el formato del correo electrónico
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
   },
-  message: 'El campo debe ser una dirección de correo electrónico válida'
+  message: "El campo debe ser una dirección de correo electrónico válida",
 });
 
 //Misma logica que sizePositive aplicada para otro valor de data
@@ -400,30 +459,27 @@ extend("weightPositive", (pokemonWeight) => {
   return "El peso del pokemon debe ser positivo";
 });
 
-
-
 // Regla que valida que el campo del color debe ser un valor hexadecimal
-extend('colorHex', {
-  validate: value => /^#[0-9A-Fa-f]{6}$/.test(value),
-  message: 'El campo color del pokemon  debe ser un color hexadecimal válido en formato "#rrggbb".'
+extend("colorHex", {
+  validate: (value) => /^#[0-9A-Fa-f]{6}$/.test(value),
+  message:
+    'El campo color del pokemon  debe ser un color hexadecimal válido en formato "#rrggbb".',
 });
 
 // Regla que valida que el valor de la fuerza sea mayor a 200 y menor que 3000
-extend('range200to3000', {
+extend("range200to3000", {
   validate(value) {
     const isValid = value >= 200 && value <= 3000;
     if (!isValid) {
-      console.log('El valor debe estar entre 200 y 3000');
+      console.log("El valor debe estar entre 200 y 3000");
     }
     return isValid;
   },
-  message: 'El valor debe estar entre 200 y 3000'
+  message: "El valor debe estar entre 200 y 3000",
 });
 
-
-
-//Regla que valida la contraseña 
-extend('passwordValidation', {
+//Regla que valida la contraseña
+extend("passwordValidation", {
   validate(value) {
     // Al menos una letra mayúscula
     const uppercaseRegex = /[A-Z]/;
@@ -432,10 +488,24 @@ extend('passwordValidation', {
     // Sin caracteres especiales
     const specialCharRegex = /^[a-zA-Z0-9]*$/;
 
-    return uppercaseRegex.test(value) && numberRegex.test(value) && specialCharRegex.test(value);
+    return (
+      uppercaseRegex.test(value) &&
+      numberRegex.test(value) &&
+      specialCharRegex.test(value)
+    );
   },
-  message: 'La contraseña debe contener al menos una letra mayúscula, un número y no puede contener caracteres especiales.'
+  message:
+    "La contraseña debe contener al menos una letra mayúscula, un número y no puede contener caracteres especiales.",
 });
+
+extend("password", {
+  params: ["target"],
+  validate(value, { target }) {
+    return value === target;
+  },
+  message: "La contraseña repetida no concuerda con la contraseña ingresada",
+});
+
 export default {
   name: "FormModal",
   data() {
@@ -447,38 +517,38 @@ export default {
       pokemonWeight: null,
       imageBase64: null,
       imageFile: null,
-      email:null,
+      email: null,
       activarRadioButtons: false,
-      selectedTipo:null,
+      selectedTipo: null,
       fuerza: 250,
-      color: '#RRGGBB',
+      color: "#rrggbb",
       selectedValues: [],
       fuerza: 0,
       password: null,
       types: [],
+      confirmation: null,
     };
   },
   methods: {
     sendForm() {
-      const selectedValuesString = this.selectedValues.join(',');
+      const selectedValuesString = this.selectedValues.join(",");
       axios
         .post("http://localhost:8080/api/pokemons", {
           name: this.name,
           description: this.description,
           size: this.pokemonSize,
           weight: this.pokemonWeight,
-          email : this.email,
+          email: this.email,
           color: this.color,
           type: {
             typeId: this.selectedType,
-            
           },
           imageBase64: this.imageBase64,
           selectedTipo: this.selectedTipo,
           selectedValues: selectedValuesString,
           fuerza: this.fuerza,
           password: this.password,
-    })
+        })
         .then((response) => {
           this.name = null;
           this.description = null;
@@ -486,12 +556,12 @@ export default {
           this.pokemonWeight = null;
           this.selectedType = null;
           this.imageBase64 = null;
-          this.email=null;
-          this.color=null;
-          this.selectedTipo=null;
-          this.selectedValues=null;
-          this.fuerza=null;
-          this.password=null;
+          this.email = null;
+          this.color = null;
+          this.selectedTipo = null;
+          this.selectedValues = null;
+          this.fuerza = null;
+          this.password = null;
           //   this.errors = [];
           this.$emit("registroExitoso");
           this.$swal({
@@ -531,12 +601,12 @@ export default {
       this.selectedType = null;
       this.pokemonSize = null;
       this.pokemonWeight = null;
-      this.email = null; 
-      this.color=null;
-      this.selectedTipo=null;
-      this.selectedValues=null;
-      this.fuerza=null;
-      this.password=null;
+      this.email = null;
+      this.color = null;
+      this.selectedTipo = null;
+      this.selectedValues = null;
+      this.fuerza = null;
+      this.password = null;
     },
     handleImageUpload(event) {
       this.imageFile = event.target.files[0];
@@ -556,13 +626,13 @@ export default {
       this.fuerza = parseInt(event.target.value);
     },
     updateColor() {
-  // Validar el formato del color
-  if (!/^#[0-9A-Fa-f]{6}$/i.test(this.color)) {
-    // Mostrar un mensaje de error o tomar alguna otra acción
-    console.error('El color seleccionado no es válido.');
-  }
-},
-handleCheckboxChange(newValue) {
+      // Validar el formato del color
+      if (!/^#[0-9A-Fa-f]{6}$/i.test(this.color)) {
+        // Mostrar un mensaje de error o tomar alguna otra acción
+        console.error("El color seleccionado no es válido.");
+      }
+    },
+    handleCheckboxChange(newValue) {
       if (!newValue) {
         this.selectedTipo = null; // Establece el valor del radio button como null cuando se desactiva el checkbox
       }
@@ -678,5 +748,19 @@ handleCheckboxChange(newValue) {
 
 .errors {
   color: red;
+}
+
+.select-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.select-container label {
+  width: 170px;
+}
+
+.select-container input {
+  width: 30%;
 }
 </style>
